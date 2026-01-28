@@ -72,11 +72,6 @@ QA tasks evaluate map comprehension across different aspects:
 | 11 | `11_qa_pic_and_tab_part` | Local questions with map and table |
 | 12 | `12_qa_pic_and_tab_spatial_judge` | Spatial judgment with map and table |
 
-Additional planning tasks with QA components:
-- `shortest_path_with_qa_and_constraint_1` through `shortest_path_with_qa_and_constraint_4`
-- `shortest_path_with_qa_and_constraint_1_2_3_4`
-- And other constraint combinations
-
 ## Dataset
 
 The dataset includes two map types:
@@ -153,38 +148,14 @@ export API_KEY="your-api-key"  # For API-based models
 
 ### 2. Run Generation
 
-```bash
-# Run with API-based model (planning task)
-python src/generate.py \
-    --task metromap \
-    --subtask shortest_path_map_and_tab_with_constraint_1_2_3_4 \
-    --model_path gpt-4o \
-    --api_key $API_KEY
-
 # Run with local model (planning task)
-python src/generate.py \
-    --task metromap \
-    --subtask shortest_path_only_map \
-    --model_path Qwen/Qwen3-VL-8B-Instruct \
-    --seed 42
-
-# Run QA task
-python src/generate.py \
-    --task metromap \
-    --subtask 1_qa_only_pic_global \
-    --model_path Qwen/Qwen3-VL-8B-Instruct \
-    --seed 42
-```
+bash scripts/generate.sh 
 
 ### 3. Run Evaluation
 
-```bash
 # Evaluate planning results
-python src/evaluate_planning.py --input_file results/response_generate/metromap_shortest_path_only_map_Qwen3-VL-8B-Instruct_results.json
+bash scripts/evaluate.sh
 
-# Evaluate QA results (when QA data is available)
-python src/evaluate_qa.py --input_file results/response_generate/metromap_1_qa_only_pic_global_Qwen3-VL-8B-Instruct_results.json
-```
 
 ## Supported Models
 
@@ -208,7 +179,6 @@ python src/evaluate_qa.py --input_file results/response_generate/metromap_1_qa_o
 - Kimi/Kimi-VL-A3B-Instruct
 - microsoft/Phi-4-multimodal-instruct
 - microsoft/Phi-3.5-vision-instruct
-- Glyph
 
 **Additional Supported Models:**
 - Qwen/Qwen3-VL-2B-Instruct
