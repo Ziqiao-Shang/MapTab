@@ -100,14 +100,23 @@ The current release includes:
 Each data sample contains:
 ```json
 {
-  "query_id": "unique_identifier",
-  "system_prompt": "Task instructions...",
-  "text": "User query text...",
-  "images": ["path/to/map_image.png"],
-  "tabular": "JSON or CSV formatted table data",
-  "answer": "Ground truth answer",
-  "Map_Difficulty": 1-3,
-  "Query_Difficulty": 1-3
+    "country": "cambodia",
+    "scenic_spot": "angkorWar",
+    "figure": "travelmap/images/cambodia/angkorWar.png",
+    "edge_tab": "travelmap/tabulars/cambodia/angkorWar_edge.json",
+    "vertex_tab": "travelmap/tabulars/cambodia/angkorWar_vertex.json",
+    "spot_1": "巴方寺",
+    "spot_2": "比粒寺",
+    "Map_Difficulty": "Hard",
+    "Query_Difficulty": "Hard",
+    "question": "According to the Scenic Area Planning Map, Edge Table, what is the shortest path from 巴方寺 to 比粒寺?",
+    "routes": [
+        "巴方寺-巴戎寺-圣剑寺-龙蟠水池-塔逊庙-东梅硼-比粒寺"
+    ],
+    "route_vertex_numbers": [
+        7
+    ],
+    "qdi_rank": 133
 }
 ```
 
