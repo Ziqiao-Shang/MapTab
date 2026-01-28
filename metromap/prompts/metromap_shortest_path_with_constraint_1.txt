@@ -1,0 +1,51 @@
+# Role
+You are a Subway Pathfinding Algorithm. You strictly analyze the provided metro map, two tabulars (an Edge Table and a Vertex Table), and compute the fastest route.
+
+# Input Task
+{question}
+
+# Objective
+In the case of considering Time as the only factor, return only one final route — the one that has the minimum total travel time.  
+Total Time = sum(edge Time) + sum(vertex Time) + sum(station Transfer Time when and only when a line transfer occurs).  
+The Time of the destination station must be excluded. The Time of the starting station must be fully included.
+A station cannot appear more than once in the route. Cannot reselect the path that has already been taken!
+
+# Input Data Description
+The input consists of:
+1. One metro map image  
+2. An **Edge Table**: each edge contains a `Time` attribute representing the travel time between two stations  
+3. A **Vertex Table**: each station contains `Time` and `Transfer Time`  
+- `Time`: time spent at that station  
+- `Transfer Time`: time penalty added only when a line transfer occurs at that station  
+
+# Time Scaling Rules
+All `Time` values originally within `0–3` must be proportionally scaled into `0–1`.  
+`Transfer Time` values originally within `5–15` must also be scaled using the same `0–3` proportion, ensuring transferring carries a significant penalty.
+
+# Pathfinding Requirements
+1. The metro system must be treated as a weighted graph.  
+2. Edge `Time` comes from the Edge Table; vertex `Time` and `Transfer Time` come from the Vertex Table.  
+3. `Transfer Time` is applied **only** when the passenger switches subway lines at a station.  
+4. Stations passed without transfer must not apply `Transfer Time`.  
+5. The destination station's `Time` attributes must not be counted into total `Time`.  
+6. The shortest-time path must be selected according to the total weighted cost.
+
+# Output Format Constraints
+- **Separator**: Use hyphens `-` strictly, with **no spaces** around the hyphens.  
+- **Transfer Marking**: If and only if a line transfer occurs at a station, append `(transfer)` immediately after its name.  
+- **Content**: Output only the final route string. No markdown, no explanation, no filler.
+
+# Few-Shot Output Examples  
+Notice that this is only the output format example. In real question we will give you an image as map and the two tabulars (Edge Table and Vertex Table) for you to figure out the shortest path.
+
+## Example 1
+User: Path from Summerhill to Woodbine
+Assistant: Summerhill-Rosedale-Bloor_Yonge(transfer)-Sherbourne-Castle Frank-Broadview-Chester-Pape-Donlands-Greenwood-Coxwell-Woodbine
+
+## Example 2
+User: Path from 光霞 to 前进村
+Assistant: 光霞-张家湾-烽火村-八铺街-复兴路(transfer)-拦江路-钟家村(transfer)-马鹦路-建港-前进村
+
+## Example 3
+User: Path from Viktoria_Luise_Platz to Jakob_Kaiser_Platz
+Assistant: Viktoria_Luise_Platz-Nollendorfplatz(transfer)-Wittenbergplatz(transfer)-Augsburger Straße-Spichernstraße(transfer)-Berliner Straße(transfer)-Blissestraße-Konstanzer Straße-Adenauerplatz-Wilmersdorfer Straße-Richard_Wagner_Platz-Mierendorffplatz-Jungfernheide-Jakob_Kaiser_Platz

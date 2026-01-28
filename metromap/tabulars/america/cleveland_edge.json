@@ -1,0 +1,172 @@
+[
+  {
+    "Edge": "Hopkins Airport-Brookpark",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.76,
+    "Price": 1.25,
+    "Comfort Level": 0.17,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "Brookpark-Puritas",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.37,
+    "Price": 1.35,
+    "Comfort Level": 0.44,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "Puritas-West Park",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.33,
+    "Price": 1.09,
+    "Comfort Level": 0.1,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "West Park-Triskett",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.45,
+    "Price": 0.2,
+    "Comfort Level": 0.79,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "Triskett-West 117th_Madison",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.42,
+    "Price": 0.64,
+    "Comfort Level": 0.08,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "West 117th_Madison-West Boulevard_Cudell",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.78,
+    "Price": 0.26,
+    "Comfort Level": 0.46,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "West Boulevard_Cudell-West 65th_Lorain",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.39,
+    "Price": 0.68,
+    "Comfort Level": 0.76,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "West 65th_Lorain-West 25th_Ohio City",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.13,
+    "Price": 0.81,
+    "Comfort Level": 0.61,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "West 25th_Ohio City-Tower City_Public Square",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.68,
+    "Price": 1.4,
+    "Comfort Level": 0.62,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "Tower City_Public Square-East 34th_Campus",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.62,
+    "Price": 1.1,
+    "Comfort Level": 0.87,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "East 34th_Campus-East 55th",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.62,
+    "Price": 0.65,
+    "Comfort Level": 0.53,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "East 55th-East 79th",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.05,
+    "Price": 0.36,
+    "Comfort Level": 0.6,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "East 79th-East 105th_Quincy",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.82,
+    "Price": 0.92,
+    "Comfort Level": 0.54,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "East 105th_Quincy-Cedar_University",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.36,
+    "Price": 0.25,
+    "Comfort Level": 0.3,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "Cedar_University-Little Italy_University Circle",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.02,
+    "Price": 1.1,
+    "Comfort Level": 0.82,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "Little Italy_University Circle-Superior",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.91,
+    "Price": 1.2,
+    "Comfort Level": 0.37,
+    "Reliability": 0.0
+  },
+  {
+    "Edge": "Superior-Louis Stokes_Windermere",
+    "Line": [
+      "Red Line"
+    ],
+    "Time": 2.11,
+    "Price": 0.56,
+    "Comfort Level": 0.77,
+    "Reliability": 0.0
+  }
+]

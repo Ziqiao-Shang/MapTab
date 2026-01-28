@@ -1,0 +1,18 @@
+﻿Edge,Line,Time,Price,Comfort Level,Reliability
+Hopkins Airport-Brookpark,Red Line,2.76,1.25,0.17,0
+Brookpark-Puritas,Red Line,2.37,1.35,0.44,0
+Puritas-West Park,Red Line,2.33,1.09,0.1,0
+West Park-Triskett,Red Line,2.45,0.2,0.79,0
+Triskett-West 117th_Madison,Red Line,2.42,0.64,0.08,0
+West 117th_Madison-West Boulevard_Cudell,Red Line,2.78,0.26,0.46,0
+West Boulevard_Cudell-West 65th_Lorain,Red Line,2.39,0.68,0.76,0
+West 65th_Lorain-West 25th_Ohio City,Red Line,2.13,0.81,0.61,0
+West 25th_Ohio City-Tower City_Public Square,Red Line,2.68,1.4,0.62,0
+Tower City_Public Square-East 34th_Campus,Red Line,2.62,1.1,0.87,0
+East 34th_Campus-East 55th,Red Line,2.62,0.65,0.53,0
+East 55th-East 79th,Red Line,2.05,0.36,0.6,0
+East 79th-East 105th_Quincy,Red Line,2.82,0.92,0.54,0
+East 105th_Quincy-Cedar_University,Red Line,2.36,0.25,0.3,0
+Cedar_University-Little Italy_University Circle,Red Line,2.02,1.1,0.82,0
+Little Italy_University Circle-Superior,Red Line,2.91,1.2,0.37,0
+Superior-Louis Stokes_Windermere,Red Line,2.11,0.56,0.77,0

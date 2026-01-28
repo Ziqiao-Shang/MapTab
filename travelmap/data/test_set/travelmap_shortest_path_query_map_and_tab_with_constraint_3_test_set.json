@@ -1,0 +1,30 @@
+[
+    {
+        "country": "cambodia",
+        "scenic_spot": "angkorWar",
+        "figure": "travelmap/images/cambodia/angkorWar.png",
+        "edge_tab": "travelmap/tabulars/cambodia/angkorWar_edge.json",
+        "vertex_tab": "travelmap/tabulars/cambodia/angkorWar_vertex.json",
+        "spot_1": "巴方寺",
+        "spot_2": "比粒寺",
+        "Map_Difficulty": "Hard",
+        "Query_Difficulty": "Hard",
+        "question": "According to the Scenic Area Planning Map, Edge Table and Vertex Table, find the path that maximizes comfort from 巴方寺 to 比粒寺.",
+        "routes": [
+            "巴方寺-巴戎寺-圣剑寺-龙蟠水池-塔逊庙-东梅硼-比粒寺"
+        ],
+        "route_vertex_numbers": [
+            7
+        ],
+        "weights": [
+            0,
+            0,
+            1,
+            0
+        ],
+        "Total_Time": 440.0,
+        "Total_Price": 344.0,
+        "Average_Comfort Level": 3.107692,
+        "Average_Reliability": 0.644889
+    }
+]

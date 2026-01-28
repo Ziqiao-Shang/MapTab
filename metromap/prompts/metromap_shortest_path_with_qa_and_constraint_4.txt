@@ -1,0 +1,80 @@
+# Role
+You are a Subway Pathfinding Algorithm. You strictly analyze the provided metro map, two tabulars (an Edge Table and a Vertex Table), and compute the route with the highest reliability.
+
+# Input Task
+{question}
+
+# Objective
+In the case of considering Reliability as the only factor, return only one final route — the one you believe has the highest average reliability based on station reliability values.
+A station cannot appear more than once in the route. Cannot reselect the path that has already been taken!
+
+# Input Data Description
+The input consists of:
+1. One metro map image
+2. A **Vertex Table**: each station contains a `Reliability` attribute representing the route reliability where larger values indicate higher reliability
+3. An **Edge Table**: edges exist but their attributes are ignored for this task
+
+# Pathfinding Requirements
+1. The metro system must be treated as a weighted graph where each station receives its Reliability from the Vertex Table
+2. These values must be used to compute the path with the highest average reliability
+3. All Reliability values, originally ranging from 0–1, must be converted into one minus their values if needed for scoring, and any zero values must be excluded from averaging
+4. All Reliability attributes of the destination station must be excluded from the evaluation, while all Reliability attributes of the starting station must be fully included
+
+# Route Output Format Constraints
+- **Separator**: Use hyphens `-` strictly, with no spaces around the hyphens.
+- **Transfer Marking**: If a line transfer occurs at a station, append `(transfer)` immediately after its name.
+- **Content**: Output only the final route string. No markdown, no explanation, no filler.
+- **Route Format**: The route must be in the strict format `<route_begin><route_end>`, where `<route_begin>` and `<route_end>` are the start and end of the path respectively.
+
+# Additional Output: Total Time, Total Price, Average Comfort Level, and Average Reliability
+In addition to the route, we also need to output the following four metrics: Total Time, Total Price, Average Comfort Level, and Average Reliability. These four metrics will also serve as reference points for the user.
+1. **The four metrics — Total Time, Total Price, Average Comfort Level, and Average Reliability — must be calculated using raw (un-normalized) data**:  
+   - `Time`: actual values between 0–3
+   - `Transfer Time`: actual values between 5–15
+   - `Price`: actual values between 0–1.5
+   - `Comfort Level` and `Reliability`: direct values between 0–1
+2. **Total Time**: sum of the Time values from all edges and stations along the route, where the starting station’s Time is fully included and the destination station’s Time is excluded; a station’s Transfer Time is added only when a line transfer occurs at that station, otherwise its transfer time is treated as 0. The Time values are used directly in their original scale (0–3) without normalization or weighting, and the Transfer Time values are also used directly in their original scale (5–15) without normalization or weighting.
+3. **Total Price**: sum of all `Price` values from edges along the route. Values are used directly (0–1.5) without normalization or weighting.
+4. **Average Comfort Level**: mean of the `Comfort Level` values of all edges and stations along the route. The destination station is excluded; the starting station is included. Values are used directly (0–1) without normalization or weighting.
+5. **Average Reliability**: mean of the `Reliability` values of all stations along the route. The destination station is excluded; the starting station is included. Values are used directly (0–1) without normalization or weighting.
+6. **Summary Rules**:  
+   - All four metrics are computed from raw data only.  
+   - The destination station is excluded from all calculations.   
+   - These metrics are **for reference** and are **not** used in the path selection.
+
+# Total Time, Total Price, Average Comfort Level, and Average Reliability Respectively Output Example Format:
+1. **Route**: `<route_begin>Station1-Station2(transfer)-Station3-Station4<route_end>`
+2. **Total Time**: `<Total_Time_begin>xx.xx<Total_Time_end>`
+3. **Total Price**: `<Total_Price_begin>xx.xx<Total_Price_end>`
+4. **Average Comfort Level**: `<Average_Comfort Level_begin>xx.xxxxxx<Average_Comfort Level_end>`
+5. **Average Reliability**: `<Average_Reliability_begin>xx.xxxxxx<Average_Reliability_end>`
+
+# Few-Shot Output Examples
+Notice that this is only the output format example. In real question we will give you an image as map and the two tabulars (Edge Table and Vertex Table) for you to figure out the best route.
+
+## Example 1
+User: Path from Beaubien to Fabre  
+Assistant: 
+<route_begin>Beaubien-Jean_Talon(transfer)-De Castelnau-Fabre<route_end>  
+<Total_Time_begin>19.68<Total_Time_end>  
+<Total_Price_begin>2.32<Total_Price_end>  
+<Average_Comfort Level_begin>0.481429<Average_Comfort Level_end>  
+<Average_Reliability_begin>0.866667<Average_Reliability_end>
+
+## Example 2
+User: Path from 汪家墩 to 汉正街  
+Assistant: 
+<route_begin>汪家墩-徐东-徐家棚(transfer)-三阳路(transfer)-大智路(transfer)-江汉路-六渡桥-汉正街<route_end>  
+<Total_Time_begin>60.93<Total_Time_end>  
+<Total_Price_begin>5.76<Total_Price_end>  
+<Average_Comfort Level_begin>0.524118<Average_Comfort Level_end>  
+<Average_Reliability_begin>0.832857<Average_Reliability_end>
+
+## Example 3
+User: Path from Augsburger Straße to Jannowitzbrücke  
+Assistant: 
+<route_begin>Augsburger Straße-Wittenbergplatz(transfer)-Nollendorfplatz-Kurfürstenstraße-Gleisdreieck-Möckernbrücke-Hallesches Tor-Prinzenstraße-Kottbusser Tor(transfer)-Moritzplatz-Heinrich_Heine_Straße-Jannowitzbrücke<route_end>  
+<Total_Time_begin>60.97<Total_Time_end>  
+<Total_Price_begin>10.49<Total_Price_end>  
+<Average_Comfort Level_begin>0.594167<Average_Comfort Level_end>  
+<Average_Reliability_begin>0.821818<Average_Reliability_end>

@@ -1,0 +1,32 @@
+[
+    {
+        "country": "america",
+        "city": "cleveland",
+        "figure": "metromap/images/america/cleveland.png",
+        "vertex_tab": "metromap/tabulars/america/cleveland_vertex2.json",
+        "station_1": "Triskett",
+        "station_2": "West 25th_Ohio City",
+        "Map_Difficulty": "Easy",
+        "Query_Difficulty": "Easy",
+        "question": "According to the subway map and the Vertex Table, what is the optimal route considering time, price, comfort, and reliability from Triskett to West 25th_Ohio City?",
+        "routes": [
+            "Triskett-West 117th_Madison-West Boulevard_Cudell-West 65th_Lorain-West 25th_Ohio City"
+        ],
+        "route_vertex_numbers": [
+            5
+        ],
+        "transfer_vertex_numbers": [
+            0
+        ],
+        "weights": [
+            0.212746,
+            0.354479,
+            0.30175,
+            0.131025
+        ],
+        "Total_Time": 4.4,
+        "Total_Price": 2.09,
+        "Average_Comfort Level": 0.6375,
+        "Average_Reliability": 0.755
+    }
+]
