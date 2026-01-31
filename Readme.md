@@ -1,6 +1,6 @@
-# MapTab: A Benchmark for Evaluating Vision-Language Models on Map Understanding
+# MapTab: A Benchmark for Evaluating Vision-Language Models on Metromap/Travelmap Understanding
 
-MapTab is a comprehensive benchmark designed to evaluate the map understanding and spatial reasoning capabilities of Vision-Language Models (VLMs). The benchmark focuses on two core tasks: **route planning** and **map-based question answering**, using both metro maps and travel maps.
+MapTab is a comprehensive benchmark designed to evaluate the map understanding and spatial reasoning capabilities of Vision-Language Models (VLMs). The benchmark focuses on two core tasks: **route planning** and **map-based QA**, using both metro maps and travel maps.
 
 ## 📋 Table of Contents
 
