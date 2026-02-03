@@ -58,6 +58,8 @@ The dataset includes two map types:
 - **MetroMap**: Synthetic metro/subway network maps
 - **TravelMap**: Travel route maps with geographic information
 
+We have only released a portion of the benchmark. The complete training set and test set will be released in the future.
+
 ### Dataset Status
 
 The current release includes:
