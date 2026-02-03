@@ -10,12 +10,6 @@ MapTab is a comprehensive benchmark designed to evaluate the map understanding a
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [Supported Models](#supported-models)
-- [Usage](#usage)
-  - [Response Generation](#response-generation)
-  - [Evaluation](#evaluation)
-- [Project Structure](#project-structure)
-- [Configuration](#configuration)
-- [Citation](#citation)
 - [License](#license)
 
 ## Overview
