@@ -139,7 +139,7 @@ bash scripts/evaluate.sh
 
 **Output:** Results are saved to `results/response_generate/{task}_{subtask}_{model_name}_results.json`
 
-### Metrics:
+### Metrics
 - `all_acc`: Exact match accuracy (complete route correctness)
 - `part_acc`: Partial accuracy (proportion of correct route segments)
 - `Difficulty_score`: Difficulty-weighted score based on map and query complexity
