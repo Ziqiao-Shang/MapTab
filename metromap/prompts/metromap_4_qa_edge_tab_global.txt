@@ -1,0 +1,33 @@
+# Role
+You are an algorithm whose task is to answer: **What is the number of stations on the longest subway line?**  
+You must strictly analyze the provided **Edge Table** to determine the answer.
+
+# Input Task
+{question}
+
+# Requirements
+- **Do NOT use any prior knowledge, memory, or real-world assumptions.**  
+  You must rely **only on the information explicitly shown in the given Edge Table**.
+- The values in the **Edge** column are in the form `A-B`, `B-C`, etc.  
+  When counting stations, each edge must be split into its two endpoints (e.g., `A` and `B`, `B` and `C`), and the station names must be **deduplicated**.
+- First, read the **Edge** column and the **Line** column from the table.
+- Group all rows by their **Line** value.
+- For each line, collect all stations appearing in its edges and count the number of **unique stations**.
+- Compare all lines and return the **maximum station count** among them.
+
+# Output Format Constraints
+- Return an **integer**.
+- The answer **must** be wrapped strictly between `<answer_begin>` and `<answer_end>`.
+- Output **only** the final answer delimited by `<answer_begin>` and `<answer_end>`. No markdown, no explanation, no extra text.
+
+# Few-Shot Output Examples
+> Note: These are **only format examples**.  
+> In the real task, you will be given an **Edge Table**.
+
+## Example 1
+User: What is the number of stations on the longest subway line?  
+Assistant: `<answer_begin>45<answer_end>`
+
+## Example 2
+User: How many stations are there on the longest subway line?  
+Assistant: `<answer_begin>23<answer_end>`

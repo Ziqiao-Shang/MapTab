@@ -1,0 +1,184 @@
+[
+  {
+    "Vertex": "女王宫",
+    "Time": 21.0,
+    "Price": 50.0,
+    "Comfort Level": 3.1,
+    "Reliability": 0.334247
+  },
+  {
+    "Vertex": "龙蟠水池",
+    "Time": 93.0,
+    "Price": 45.0,
+    "Comfort Level": 2.2,
+    "Reliability": 0.446575
+  },
+  {
+    "Vertex": "圣剑寺",
+    "Time": 27.0,
+    "Price": 40.0,
+    "Comfort Level": 1.6,
+    "Reliability": 0.252055
+  },
+  {
+    "Vertex": "塔逊庙",
+    "Time": 38.0,
+    "Price": 35.0,
+    "Comfort Level": 3.5,
+    "Reliability": 0.879452
+  },
+  {
+    "Vertex": "东梅硼",
+    "Time": 23.0,
+    "Price": 30.0,
+    "Comfort Level": 3.3,
+    "Reliability": 0.684932
+  },
+  {
+    "Vertex": "皇家浴池",
+    "Time": 24.0,
+    "Price": 25.0,
+    "Comfort Level": 4.8,
+    "Reliability": 0.786301
+  },
+  {
+    "Vertex": "比粒寺",
+    "Time": 64.0,
+    "Price": 25.0,
+    "Comfort Level": 4.0,
+    "Reliability": 0.942466
+  },
+  {
+    "Vertex": "胜利门",
+    "Time": 29.0,
+    "Price": 30.0,
+    "Comfort Level": 4.1,
+    "Reliability": 0.863014
+  },
+  {
+    "Vertex": "周萨神庙",
+    "Time": 22.0,
+    "Price": 25.0,
+    "Comfort Level": 4.9,
+    "Reliability": 0.232877
+  },
+  {
+    "Vertex": "战象台",
+    "Time": 56.0,
+    "Price": 20.0,
+    "Comfort Level": 3.7,
+    "Reliability": 0.271233
+  },
+  {
+    "Vertex": "巴戎寺",
+    "Time": 72.0,
+    "Price": 40.0,
+    "Comfort Level": 1.9,
+    "Reliability": 0.578082
+  },
+  {
+    "Vertex": "巴方寺",
+    "Time": 25.0,
+    "Price": 35.0,
+    "Comfort Level": 1.6,
+    "Reliability": 0.953425
+  },
+  {
+    "Vertex": "空中宫殿",
+    "Time": 24.0,
+    "Price": 45.0,
+    "Comfort Level": 3.7,
+    "Reliability": 0.745205
+  },
+  {
+    "Vertex": "崩密列",
+    "Time": 28.0,
+    "Price": 75.0,
+    "Comfort Level": 4.8,
+    "Reliability": 0.715068
+  },
+  {
+    "Vertex": "塔布隆寺",
+    "Time": 153.0,
+    "Price": 40.0,
+    "Comfort Level": 2.4,
+    "Reliability": 0.90411
+  },
+  {
+    "Vertex": "班黛喀蒂",
+    "Time": 28.0,
+    "Price": 35.0,
+    "Comfort Level": 2.7,
+    "Reliability": 0.794521
+  },
+  {
+    "Vertex": "豆蔻寺",
+    "Time": 149.0,
+    "Price": 25.0,
+    "Comfort Level": 3.0,
+    "Reliability": 0.591781
+  },
+  {
+    "Vertex": "小吴哥",
+    "Time": 178.0,
+    "Price": 60.0,
+    "Comfort Level": 4.7,
+    "Reliability": 0.424658
+  },
+  {
+    "Vertex": "巴肯山日落",
+    "Time": 54.0,
+    "Price": 20.0,
+    "Comfort Level": 4.1,
+    "Reliability": 0.578082
+  },
+  {
+    "Vertex": "通王城南门",
+    "Time": 54.0,
+    "Price": 25.0,
+    "Comfort Level": 3.3,
+    "Reliability": 0.276712
+  },
+  {
+    "Vertex": "神牛寺",
+    "Time": 56.0,
+    "Price": 50.0,
+    "Comfort Level": 1.5,
+    "Reliability": 0.326027
+  },
+  {
+    "Vertex": "巴空寺",
+    "Time": 20.0,
+    "Price": 45.0,
+    "Comfort Level": 5.0,
+    "Reliability": 0.684932
+  },
+  {
+    "Vertex": "洞里萨湖",
+    "Time": 122.0,
+    "Price": 80.0,
+    "Comfort Level": 2.2,
+    "Reliability": 0.780822
+  },
+  {
+    "Vertex": "癞王台",
+    "Time": 135.0,
+    "Price": 60.0,
+    "Comfort Level": 2.1,
+    "Reliability": 0.947945
+  },
+  {
+    "Vertex": "托玛伊神庙",
+    "Time": 25.0,
+    "Price": 30.0,
+    "Comfort Level": 2.7,
+    "Reliability": 0.923288
+  },
+  {
+    "Vertex": "茶胶寺",
+    "Time": 36.0,
+    "Price": 50.0,
+    "Comfort Level": 2.5,
+    "Reliability": 0.30411
+  }
+]

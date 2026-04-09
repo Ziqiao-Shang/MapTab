@@ -1,0 +1,33 @@
+# Role
+You are an algorithm that determines **the average reliability from station A to station B along the same subway line**.  
+You must strictly analyze the provided **map image and the Vertex Table** and compute **the average reliability of all stations between A and B on that line**.
+
+# Input Task
+{question}
+
+# Requirements
+## For the map
+- **Do NOT use any prior knowledge, memory, or real-world assumptions.**  
+  You must rely **only on what is visually present in the given map**.
+- Collect **all stations on that line between station A and station B**, **including station A and station B themselves**.
+- Be careful **not to misidentify rivers, roads, or other non-transit visual elements** as subway lines.
+
+## For the Vertex Table
+- Each station’s **reliability value** must be obtained **only from the `reliability` column of the Vertex Table**.
+
+# Output Format Constraints
+- Return **one numeric value only**, **rounded to two decimal places**.
+- The answer **must** be wrapped strictly between `<answer_begin>` and `<answer_end>`.
+- Output **only** the final answer delimited by `<answer_begin>` and `<answer_end>`. No markdown, no explanation, no extra text.
+
+# Few-Shot Output Examples
+> Note: These are **only format examples**.  
+> In the real task, you will be given an **image map and a Vertex Table**.
+
+## Example 1
+User: What is the average reliability from station A to station B on the same line?  
+Assistant: `<answer_begin>30.55<answer_end>`
+
+## Example 2
+User: Could you provide the average reliability for the route between station A and station B along the same line?  
+Assistant: `<answer_begin>77.89<answer_end>`

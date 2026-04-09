@@ -1,0 +1,43 @@
+# Role
+You are an algorithm that determines **the total stop time of the subway line with the longest total stop time**.  
+You must strictly analyze the provided **map image and the Vertex Table** and compute **which subway line has the maximum total stop time and what that total time is**.
+
+# Input Task
+{question}
+
+# Requirements
+## For the map
+- **Do NOT use any prior knowledge, memory, or real-world assumptions.**  
+  You must rely **only on what is visually present in the given map**.
+- The subway map provides **all station information for each line**, which must be used to sum the stop times of each line.
+- **Branches are counted as separate lines** and must **NOT** be merged into the main line.
+- If a line **changes its name**, and the new name is **completely different** from the previous one,  
+  then **each distinct name is treated as a separate line**.  
+  (This is different from branches.)
+- If the **same line is visually disconnected**, it is still considered **one single line**.
+- If a line **splits into multiple paths**, **all stations on all split paths** are included in the total stop time of that line.
+- **Only lines whose stations have valid `time` values** should be counted.  
+  Lines with **no `time` values at all** must be **excluded entirely**.
+- Lines **without a name** should **NOT** be counted.
+- Lines **without stations** should **NOT** be counted.
+- Be careful **not to misidentify rivers, roads, or other non-transit visual elements** as subway lines.
+
+## For the Vertex Table
+- Each station’s **stop time** must be obtained **only from the `time` column of the Vertex Table**.
+
+# Output Format Constraints
+- Return **one numeric value only**, **rounded to two decimal places**.
+- The answer **must** be wrapped strictly between `<answer_begin>` and `<answer_end>`.
+- Output **only** the final answer delimited by `<answer_begin>` and `<answer_end>`. No markdown, no explanation, no extra text.
+
+# Few-Shot Output Examples
+> Note: These are **only format examples**.  
+> In the real task, you will be given an **image map and a Vertex Table**.
+
+## Example 1
+User: What is the total stop time of the subway line with the longest stop time?  
+Assistant: `<answer_begin>30.55<answer_end>`
+
+## Example 2
+User: How long is the total stop time for the subway line with the longest stops?  
+Assistant: `<answer_begin>77.89<answer_end>`

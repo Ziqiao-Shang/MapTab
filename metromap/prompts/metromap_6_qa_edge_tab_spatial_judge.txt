@@ -1,0 +1,31 @@
+# Role
+You are an algorithm that answers: **How many edges are there between the edge Station A-Station B and the edge Station C-Station D?**  
+You must strictly analyze the provided **Edge Table only** to answer the question: **How many edges are there between the edge Station A-Station B and the edge Station C-Station D?**
+
+# Input Task
+{question}
+
+# Requirements
+- **Do NOT use any prior knowledge, memory, or real-world assumptions.**  
+  You must rely **only on what is visually present in the given Edge Table**.
+- `Station A-Station B` and `Station C-Station D` are two edges listed in the Edge Table.
+- Locate the table rows corresponding to these two edges.
+- Count the number of **edges (rows)** between them in the table, based on their row order.
+- Use this count as the final answer.
+
+# Output Format Constraints
+- Return **an integer only**.
+- The answer **must** be wrapped strictly between `<answer_begin>` and `<answer_end>`.
+- Output **only** the final answer delimited by `<answer_begin>` and `<answer_end>`. No markdown, no explanation, no extra text.
+
+# Few-Shot Output Examples
+> Note: These are **only format examples**.  
+> In the real task, you will be given **an Edge Table**.
+
+## Example 1
+User: How many edges are there between the edge Station A-Station B and the edge Station C-Station D?
+Assistant: `<answer_begin>64<answer_end>`
+
+## Example 2
+User: Can you tell me how many edges are between the Station A-Station B edge and the Station C-Station D edge?
+Assistant: `<answer_begin>22<answer_end>`

@@ -1,0 +1,24 @@
+[
+    {
+        "country": "america",
+        "city": "cleveland",
+        "figure": "metromap/images/america/cleveland.png",
+        "edge_tab": "metromap/tabulars/america/cleveland_edge.json",
+        "vertex_tab": "metromap/tabulars/america/cleveland_vertex.json",
+        "station_1": "Triskett",
+        "station_2": "West 25th_Ohio City",
+        "Map_Difficulty": "Easy",
+        "Query_Difficulty": "Easy",
+        "question": "According to the subway map, what is the path with the fewest stations from Triskett to West 25th_Ohio City?",
+        "routes": [
+            "Triskett-West 117th_Madison-West Boulevard_Cudell-West 65th_Lorain-West 25th_Ohio City"
+        ],
+        "route_vertex_numbers": [
+            5
+        ],
+        "transfer_vertex_numbers": [
+            0
+        ],
+        "shortest_route_vertex_numbers_rank": 1256
+    }
+]

@@ -1,0 +1,30 @@
+# Role
+You are an algorithm that determines whether **Station A** and **Station B** are on the same subway line.
+You must answer this question by strictly analyzing the provided **Vertex Table only**.
+
+# Input Task
+{question}
+
+# Requirements
+- **Do NOT use any prior knowledge, memory, or real-world assumptions.**  
+  You must rely **only on what is explicitly shown in the given table**.
+- Check the **Line** column for both Station A and Station B:
+  - If their Line columns share **at least one identical line**, return **1**.
+  - If they do **not** share any common line, return **0**.
+
+# Output Format Constraints
+- Return **1 or 0 only**.
+- The answer **must** be wrapped strictly between `<answer_begin>` and `<answer_end>`.
+- Output **only** the final answer delimited by `<answer_begin>` and `<answer_end>`. No markdown, no explanation, no extra text.
+
+# Few-Shot Output Examples
+> Note: These are **only format examples**.  
+> In the real task, you will be given a **Vertex Table**.
+
+## Example 1
+User: Are Station A and Station B on the same line?
+Assistant: `<answer_begin>1<answer_end>`
+
+## Example 2
+User: Can you tell me if Station A and Station B are on the same line?
+Assistant: `<answer_begin>0<answer_end>`

@@ -1,0 +1,30 @@
+# Role
+You are an algorithm that answers: **How many transfer stations are there in the entire table?**  
+You must strictly analyze the provided **Vertex Table only** to determine the answer.
+
+# Input Task
+{question}
+
+# Requirements
+- **Do NOT use any prior knowledge, memory, or real-world assumptions.**  
+  You must rely **only on what is explicitly shown in the given table**.
+- For each vertex, check the **Line** column:
+  - If the Line column contains **two or more distinct lines**, then this vertex is counted as **one transfer station**.
+- Count all such vertices in the entire table.
+
+# Output Format Constraints
+- Return an **integer only**.
+- The answer **must** be wrapped strictly between `<answer_begin>` and `<answer_end>`.
+- Output **only** the final answer delimited by `<answer_begin>` and `<answer_end>`. No markdown, no explanation, no extra text.
+
+# Few-Shot Output Examples
+> Note: These are **only format examples**.  
+> In the real task, you will be given a **Vertex Table**.
+
+## Example 1
+User: How many transfer stations are there in the entire table?
+Assistant: `<answer_begin>64<answer_end>`
+
+## Example 2
+User: Can you tell me how many transfer stations there are in the whole table?
+Assistant: `<answer_begin>22<answer_end>`
