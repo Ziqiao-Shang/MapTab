@@ -2,7 +2,7 @@
 
 MapTab is a comprehensive benchmark designed to evaluate the map understanding and spatial reasoning capabilities of Vision-Language Models (VLMs). The benchmark focuses on two core tasks: **route planning** and **map-based question answering**, using both metro maps and travel maps.
 
-**Project Page:** [https://ziqiao-shang.github.io/Ziqiao-Shang.github.io-MapTab/](https://ziqiao-shang.github.io/Ziqiao-Shang.github.io-MapTab/)
+**Project Page:** [https://ziqiao-shang.github.io/MapTab-Leaderboard/](https://ziqiao-shang.github.io/MapTab-Leaderboard/)
 
 ![MapTab overview](assets/fig_1.png)
 
