@@ -88,7 +88,7 @@ The current release includes the following files under both `metromap/` and `tra
 
 > **Note**: In the current release, only the RP task test query set is available. QA task queries and RP task training queries will be released in future updates.
 >
-> Files in these five folders (`data/`, `qa_data/`, `images/`, `prompts/`, `tabulars/`) can be downloaded from Hugging Face: [https://huggingface.co/datasets/example-user/maptab-dataset](https://huggingface.co/datasets/example-user/maptab-dataset)
+> Files in these five folders (`data/`, `qa_data/`, `images/`, `prompts/`, `tabulars/`) can be downloaded from Hugging Face: [https://huggingface.co/datasets/szq-nju/MapTab](https://huggingface.co/datasets/szq-nju/MapTab)
 
 ## Version Requirements
 
