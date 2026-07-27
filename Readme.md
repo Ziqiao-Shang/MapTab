@@ -236,7 +236,7 @@ If you use MapTab in your research, please cite:
 ```bibtex
 @article{shang2026maptab,
   title={MapTab: A Diagnostic Benchmark for Long-Horizon Multi-Criteria Multimodal Reasoning on Heterogeneous Topological Graphs.},
-  author={Shang, Ziqiao and Ge, Lingyue and Chen, Yang and Tian, Shi-Yu and Huang, Zhenyu and Fu, Wenbo and Li, Yu-Feng and Guo, Lan-Zhe},
+  author={Shang, Ziqiao and Ge, Lingyue and and Xu, Zian and Cheng, Zi-Jian and Tian, Shi-Yu and Huang, Zhenyu and Fu, Wenbo and Wu, Weiming and Chen, Yang and Zhang, Xiangwen and Hu, Yulan and Bin, Liu and Guo, Lan-Zhe},
   journal={arXiv preprint arXiv:2602.18600},
   year={2026}
 }
