@@ -1,4 +1,4 @@
-# MapTab: Are MLLMs Ready for Multi-Criteria Route Planning in Heterogeneous Graphs?
+# MapTab: A Diagnostic Benchmark for Long-Horizon Multi-Criteria Multimodal Reasoning on Heterogeneous Topological Graphs
 
 MapTab is a comprehensive benchmark designed to evaluate the map understanding and spatial reasoning capabilities of Vision-Language Models (VLMs). The benchmark focuses on two core tasks: **route planning** and **map-based question answering**, using both metro maps and travel maps.
 
@@ -235,7 +235,7 @@ If you use MapTab in your research, please cite:
 
 ```bibtex
 @article{shang2026maptab,
-  title={MapTab: Can MLLMs Master Constrained Route Planning?},
+  title={MapTab: A Diagnostic Benchmark for Long-Horizon Multi-Criteria Multimodal Reasoning on Heterogeneous Topological Graphs.},
   author={Shang, Ziqiao and Ge, Lingyue and Chen, Yang and Tian, Shi-Yu and Huang, Zhenyu and Fu, Wenbo and Li, Yu-Feng and Guo, Lan-Zhe},
   journal={arXiv preprint arXiv:2602.18600},
   year={2026}
