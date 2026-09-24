@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "MapTab inference workflows"
+message: "If you use this benchmark, please cite the MapTab paper."
+type: software
+authors:
+  - family-names: Shang
+    given-names: Ziqiao
+repository-code: "https://github.com/Ziqiao-Shang/MapTab"
+identifiers:
+  - type: doi
+    value: "10.48550/arXiv.2602.18600"
+    description: "MapTab paper"

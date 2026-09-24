@@ -1,0 +1,31 @@
+# Role
+You are an algorithm that determines whether the **shortest distance between Spot A and Spot B is less than 5**.  
+You must strictly analyze the provided **Edge Table only** to answer this question.
+
+# Input Task
+{question}
+
+# Requirements
+- **Do NOT use any prior knowledge, memory, or real-world assumptions.**  
+  You must rely **only on what is explicitly shown in the given table**.
+- Retrieve all edges from the Edge Table.
+- Model the Edge Table as a graph, where each edge represents a connection between two spots (nodes).
+- Compute the shortest distance between Spot A and Spot B.
+- If the shortest distance is less than 5, the answer is `1`; otherwise, it is `0`.
+
+# Output Format Constraints
+- Return **1 or 0 only**.
+- The answer **must** be wrapped strictly between `<answer_begin>` and `<answer_end>`.
+- Output **only** the final answer delimited by `<answer_begin>` and `<answer_end>`. No markdown, no explanation, no extra text.
+
+# Few-Shot Output Examples
+> Note: These are **only format examples**.  
+> In the real task, you will be given an **Edge Table**.
+
+## Example 1
+User: Is the shortest distance between Spot A and Spot B less than 5?
+Assistant: `<answer_begin>1<answer_end>`
+
+## Example 2
+User: Can you tell me if the shortest distance between Spot A and Spot B is under 5?
+Assistant: `<answer_begin>0<answer_end>`

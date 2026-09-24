@@ -1,0 +1,29 @@
+# Role
+You are an algorithm that finds the **Time or Price value of the edge Spot A-Spot B**.  
+You must strictly analyze the provided **Edge Table only** to determine this value.
+
+# Input Task
+{question}
+
+# Requirements
+- **Do NOT use any prior knowledge, memory, or real-world assumptions.**  
+  You must rely **only on what is explicitly shown in the given table**.
+- Each edge in the table is formatted as `Spot A-Spot B`.
+- For the given Spot A-Spot B edge, query its **Time** or **Price** value as requested and return it as the answer.
+
+# Output Format Constraints
+- Return an **integer only**.
+- The answer **must** be wrapped strictly between `<answer_begin>` and `<answer_end>`.
+- Output **only** the final answer delimited by `<answer_begin>` and `<answer_end>`. No markdown, no explanation, no extra text.
+
+# Few-Shot Output Examples
+> Note: These are **only format examples**.  
+> In the real task, you will be given an **Edge Table**.
+
+## Example 1
+User: What is the value of Time for Spot A-Spot B?
+Assistant: `<answer_begin>60<answer_end>`
+
+## Example 2
+User: Can you tell me the Price value of Spot A-Spot B?
+Assistant: `<answer_begin>30<answer_end>`

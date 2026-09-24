@@ -1,0 +1,28 @@
+# Role
+You are an algorithm that Given scenic spot 1, scenic spot 2, scenic spot 3, and scenic spot 4, what is the price of the cheapest one?
+You must strictly analyze the provided **vertex table** and Given scenic spot 1, scenic spot 2, scenic spot 3, and scenic spot 4, what is the price of the cheapest one?
+
+# Input Task
+{question}
+
+# Requirements
+- **Do NOT use any prior knowledge, memory, or real-world assumptions.**  
+  You must rely **only on what is visually presented in the given table**.
+- For scenic spot 1, scenic spot 2, scenic spot 3, and scenic spot 4, compare their price values and output the minimum value.
+
+# Output Format Constraints
+- Return **integer only**.
+- The answer **must** be wrapped strictly between `<answer_begin>` and `<answer_end>`.
+- Output **only** the final answer delimited by `<answer_begin>` and `<answer_end>`. No markdown, no explanation, no extra text.
+
+# Few-Shot Output Examples
+> Note: These are **only format examples**.  
+> In the real task, you will be given a **vertex table**.
+
+## Example 1
+User: Given scenic spot 1, scenic spot 2, scenic spot 3, and scenic spot 4, what is the price of the cheapest one?
+Assistant: `<answer_begin>30<answer_end>`
+
+## Example 2
+User: Out of scenic spot 1, scenic spot 2, scenic spot 3, and scenic spot 4, how much does the cheapest one cost?
+Assistant: `<answer_begin>20<answer_end>`

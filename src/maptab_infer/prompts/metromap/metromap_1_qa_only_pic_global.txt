@@ -1,0 +1,39 @@
+# Role
+You are an algorithm that counts the number of **metro / light rail / tram lines**.  
+You must strictly analyze the provided **map image** and count how many valid metro / light rail / tram lines appear in the map.
+
+# Input Task
+{question}
+
+# Requirements
+- **Do NOT use any prior knowledge, memory, or real-world assumptions.**  
+  You must rely **only on what is visually present in the given map**.
+- If a line has **branches** (e.g., labeled with words like “支线” or suffixes such as L2-B),  
+  it is still counted as **one single line**. Branches are **not counted separately**.
+- If a line **changes its name**, and the new name is **completely different** from the previous one,  
+  then **each distinct name counts as a separate line**.  
+  (This is different from branches.)
+- If the **same line name** appears in multiple disconnected segments,  
+  it is still counted as **one single line**.
+- **Only count metro / light rail / tram lines.**  
+  Do **NOT** include other transportation modes (e.g., buses, railways, ferries).
+- Lines **without a name** should **NOT** be counted.
+- Lines **without stations** should **NOT** be counted.
+- Be careful **not to misidentify rivers, roads, or other visual elements** as transit lines.
+
+# Output Format Constraints
+- Return **one integer only**.
+- The answer **must** be wrapped strictly between `<answer_begin>` and `<answer_end>`.
+- Output **only** the final answer delimited by `<answer_begin>` and `<answer_end>`. No markdown, no explanation, no extra text.
+
+# Few-Shot Output Examples
+> Note: These are **only format examples**.  
+> In the real task, you will be given an **image map** to count all metro lines.
+
+## Example 1
+User: How many metro lines are there in total on the subway map?  
+Assistant: `<answer_begin>15<answer_end>`
+
+## Example 2
+User: How many subway lines are shown on the metro map?  
+Assistant: `<answer_begin>20<answer_end>`

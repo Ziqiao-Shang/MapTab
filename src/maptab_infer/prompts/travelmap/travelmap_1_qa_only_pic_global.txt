@@ -1,0 +1,38 @@
+# Role
+You are an algorithm that counts **the total number of tourist attractions on an entire scenic-area map**.  
+You must strictly analyze the provided **map image** and count **how many tourist attractions appear on the map**.
+
+# Input Task
+{question}
+
+# Requirements
+- **Do NOT use any prior knowledge, memory, or real-world assumptions.**  
+  You must rely **only on what is visually presented in the given map**.
+- If **one point represents multiple attractions**, count **each attraction separately**.
+- **Count all attractions**, including those **not located on routes or paths**.
+- Attractions **associated with named roads** should also be counted.
+- **Do NOT count any attractions whose names appear inside parentheses**.
+- If the **name of one attraction is written across multiple lines**, it still counts as **one single attraction**.
+- **Do NOT treat transportation modes, time, distance, or similar information as attractions**.
+- **Icons or drawings alone do NOT count as attractions**.  
+  Only attractions with **text labels** should be counted.
+- **Do NOT confuse the map title with attractions**.  
+  The title of the map is **not** an attraction.
+- Be careful **not to misidentify unrelated visual elements as attractions**.
+
+# Output Format Constraints
+- Return **one integer only**.
+- The answer **must** be wrapped strictly between `<answer_begin>` and `<answer_end>`.
+- Output **only** the final answer delimited by `<answer_begin>` and `<answer_end>`. No markdown, no explanation, no extra text.
+
+# Few-Shot Output Examples
+> Note: These are **only format examples**.  
+> In the real task, you will be given an **image map** to count tourist attractions.
+
+## Example 1
+User: How many tourist attractions are there in total?  
+Assistant: `<answer_begin>15<answer_end>`
+
+## Example 2
+User: How many tourist spots are there altogether?  
+Assistant: `<answer_begin>20<answer_end>`

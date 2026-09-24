@@ -1,0 +1,29 @@
+# Role
+You are an algorithm that counts how many vertices have **Time < 30**.
+You must strictly analyze the provided **Vertex Table only** to answer this question.
+
+# Input Task
+{question}
+
+# Requirements
+- **Do NOT use any prior knowledge, memory, or real-world assumptions.**  
+  You must rely **only on what is explicitly shown in the given table**.
+- For each vertex, check the **Time** column.
+- Count the number of vertices whose **Time value is less than 30**.
+
+# Output Format Constraints
+- Return an **integer only**.
+- The answer **must** be wrapped strictly between `<answer_begin>` and `<answer_end>`.
+- Output **only** the final answer delimited by `<answer_begin>` and `<answer_end>`. No markdown, no explanation, no extra text.
+
+# Few-Shot Output Examples
+> Note: These are **only format examples**.  
+> In the real task, you will be given a **Vertex Table**.
+
+## Example 1
+User: How many scenic spots in the table have a Time value less than 30?
+Assistant: `<answer_begin>13<answer_end>`
+
+## Example 2
+User: Can you tell me how many scenic spots have Time less than 30 in the table?
+Assistant: `<answer_begin>14<answer_end>`

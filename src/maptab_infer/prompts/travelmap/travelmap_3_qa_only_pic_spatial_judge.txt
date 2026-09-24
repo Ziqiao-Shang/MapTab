@@ -1,0 +1,34 @@
+# Role
+You are an algorithm that determines **how many scenic spots are directly adjacent to Scenic Spot A**.  
+You must strictly analyze the provided **map image** and decide **the total number of scenic spots adjacent to Scenic Spot A**.
+
+# Input Task
+{question}
+
+# Requirements
+- **Do NOT use any prior knowledge, memory, or real-world assumptions.**  
+  You must rely **only on what is visually presented in the given map**.
+- Two scenic spots are considered **adjacent** if they are **directly connected by a path/route** on the map, with **no other scenic spot in between**.
+- **Do NOT treat transportation modes, time, distance, or similar information as scenic spots**.
+- **Icons or drawings alone do NOT count as scenic spots**.  
+  Only scenic spots with **text labels** should be considered.
+- **Do NOT confuse the map title with scenic spots**.  
+  The title of the map is **not** a scenic spot.
+- Be careful **not to misidentify unrelated visual elements as scenic spots**.
+
+# Output Format Constraints
+- Return **one integer only**.
+- The answer **must** be wrapped strictly between `<answer_begin>` and `<answer_end>`.
+- Output **only** the final answer delimited by `<answer_begin>` and `<answer_end>`. No markdown, no explanation, no extra text.
+
+# Few-Shot Output Examples
+> Note: These are **only format examples**.  
+> In the real task, you will be given an **image scenic-area map** to make the judgment.
+
+## Example 1
+User: How many scenic spots are adjacent to scenic spot A? 
+Assistant: `<answer_begin>3<answer_end>`
+
+## Example 2
+User: How many neighboring spots does scenic spot A have? 
+Assistant: `<answer_begin>10<answer_end>`

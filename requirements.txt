@@ -1,0 +1,5 @@
+huggingface_hub>=0.25
+openai>=1.30
+pandas>=2.0
+pillow>=10
+tqdm>=4.66

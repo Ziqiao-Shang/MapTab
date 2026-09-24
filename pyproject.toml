@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "maptab-infer"
+version = "2.0.0"
+description = "Complete inference and evaluation workflows for every MapTab QA and planning task"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "huggingface_hub>=0.25",
+  "openai>=1.30",
+  "pandas>=2.0",
+  "pillow>=10",
+  "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+local = ["vllm>=0.8"]
+dataset = ["datasets>=3.0", "pyarrow>=15"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+maptab-infer = "maptab_infer.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+maptab_infer = ["prompts/**/*.txt"]

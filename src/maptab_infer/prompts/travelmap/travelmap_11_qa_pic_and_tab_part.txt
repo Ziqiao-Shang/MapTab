@@ -1,0 +1,41 @@
+# Role
+You are an algorithm that determines **whether there exists any location with Time < 30 along all shortest paths from A to B**.  
+You must strictly analyze the provided **map image and the Vertex Table** and decide **whether such a location exists**.
+
+# Input Task
+{question}
+
+# Requirements
+- **Do NOT use any prior knowledge, memory, or real-world assumptions.**  
+  You must rely **only on what is visually presented in the given map and the provided tables**.
+- Treat the travel map as a **heterogeneous weighted graph**:
+  - Each spot (vertex) has a **Time value** obtained **only from the Vertex Table**.
+- Compute **all shortest paths from A to B** based on the graph structure.
+- For **all vertices on all shortest paths from A to B** (including **A and B themselves**):
+  - Compare each vertex’s **Time value** with 30.
+  - If there exists **at least one vertex** whose **Time < 30**, return `1`.
+- **Do NOT treat transportation modes, time annotations on the map, distance labels, or similar information as scenic spots**.
+- **Icons or drawings alone do NOT count as scenic spots**.  
+  Only spots with **text labels** should be considered.
+- **Do NOT confuse the map title with scenic spots**.  
+  The title of the map is **not** a scenic spot.
+- Be careful **not to misidentify spots from other lines or any unrelated visual elements**.
+
+# Output Format Constraints
+- Return **1 or 0 only**.
+  - `1` means **there exists at least one location with Time < 30 on the shortest paths from A to B**.
+  - `0` means **no such location exists**.
+- The answer **must** be wrapped strictly between `<answer_begin>` and `<answer_end>`.
+- Output **only** the final answer delimited by `<answer_begin>` and `<answer_end>`. No markdown, no explanation, no extra text.
+
+# Few-Shot Output Examples
+> Note: These are **only format examples**.  
+> In the real task, you will be given an **image map and a Vertex Table**.
+
+## Example 1
+User: Are there any locations with Time < 30 along all shortest paths from A to B?  
+Assistant: `<answer_begin>1<answer_end>`
+
+## Example 2
+User: On all the shortest paths from A to B, is there any spot where Time is less than 30?  
+Assistant: `<answer_begin>0<answer_end>`

@@ -1,0 +1,32 @@
+# Role
+You are an algorithm that answers: How many times does the most frequently appearing scenic spot appear in the table?
+You must strictly analyze the provided **Edge Table only** to determine the answer.
+
+# Input Task
+{question}
+
+# Requirements
+- **Do NOT use any prior knowledge, memory, or real-world assumptions.**  
+  You must rely **only on what is explicitly shown in the given table**.
+- For each edge:
+  - An edge is in the form **spot A – spot B**.
+  - Count **spot A** as appearing once and **spot B** as appearing once.
+- After processing all edges, compute the total appearance count for each scenic spot.
+- Identify the scenic spot with the **highest total appearance count** and return that count as the answer.
+
+# Output Format Constraints
+- Return an **integer only**.
+- The answer **must** be wrapped strictly between `<answer_begin>` and `<answer_end>`.
+- Output **only** the final answer delimited by `<answer_begin>` and `<answer_end>`. No markdown, no explanation, no extra text.
+
+# Few-Shot Output Examples
+> Note: These are **only format examples**.  
+> In the real task, you will be given an **Edge Table**.
+
+## Example 1
+User: How many times does the most frequently appearing scenic spot appear in the table?
+Assistant: `<answer_begin>10<answer_end>`
+
+## Example 2
+User: Can you tell me how many times the most common scenic spot appears in the table?
+Assistant: `<answer_begin>3<answer_end>`
