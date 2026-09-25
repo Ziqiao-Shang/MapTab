@@ -1,7 +1,5 @@
 # MapTab: Complete Inference and Evaluation
 
-[简体中文](README_zh.md)
-
 **Official resources:** [Project page](https://ziqiao-shang.github.io/MapTab-Leaderboard/) · [arXiv paper](https://arxiv.org/abs/2602.18600) · [Hugging Face dataset](https://huggingface.co/datasets/szq-nju/MapTab) · [Official code](https://github.com/Ziqiao-Shang/MapTab)
 
 This repository is an inference-only, reproducible implementation of **MapTab: A Diagnostic Benchmark for Long-Horizon Multi-Criteria Multimodal Reasoning on Heterogeneous Topological Graphs**. It follows the complete query-construction and scoring method in `MapTab-main` while covering both MetroMap and TravelMap, all QA and route-planning branches, CSV ablations, the released vertex2 task, and QA-guided planning.
@@ -17,7 +15,9 @@ The raw dataset and model weights are not committed here. Download MapTab from t
 - [Complete Task Inventory](#complete-task-inventory)
 - [Dataset Layout](#dataset-layout)
 - [Installation](#installation)
-- [Quick Start](#quick-start)
+- [Supported Models](#supported-models)
+- [End-to-End Test Workflow](#end-to-end-test-workflow)
+- [Public Interfaces](#public-interfaces)
 - [Inference Backends](#inference-backends)
 - [Evaluation](#evaluation)
 - [Outputs and Resume Behavior](#outputs-and-resume-behavior)
@@ -62,7 +62,7 @@ The release also makes several operational repairs without changing the benchmar
 
 - Explicit `--data-root` replaces machine-specific `WORKSPACE_DIR` path concatenation.
 - A declarative task registry replaces two long duplicated conditional builders.
-- Hosted OpenAI-compatible APIs and in-process vLLM share the same input builder.
+- The supported OpenLux Gemini routes and local vLLM Qwen routes share the same input builder.
 - Stable IDs, atomic writes, resume, error retention, and retry are built into generation.
 - The released QA task 13 is registered. Because the release has no dedicated task-13 prompt, it uses the corresponding vertex-global prompt.
 - Some TravelMap task-13 rows refer to unreleased `*_vertex2.json/.csv` assets. The loader preserves the source record but resolves the verified matching `*_vertex.json/.csv` asset when needed.
@@ -119,67 +119,120 @@ The eight QA-guided planning variants are:
 
 ## Dataset Layout
 
-The loader accepts both the original MapTab tree and the normalized Hugging Face package.
-
-Original layout:
-
-```text
-DATA_ROOT/
-├── metromap/
-│   ├── data/{training_set,test_set,all}/
-│   ├── qa_data/
-│   ├── images/
-│   └── tabulars/
-└── travelmap/
-    ├── data/{training_set,test_set,all}/
-    ├── qa_data/
-    ├── images/
-    └── tabulars/
-```
-
-Normalized package layout:
+The inference repository consumes the exact directory tree published by
+`szq-nju/MapTab`. No conversion step is required:
 
 ```text
 DATA_ROOT/
-├── raw/
-│   ├── metromap/{data,qa_data,prompts}/
-│   └── travelmap/{data,qa_data,prompts}/
-└── assets/
-    ├── metromap/{images,tabulars}/
-    └── travelmap/{images,tabulars}/
+|-- data/
+|   |-- metromap_qa/test-*.parquet
+|   |-- travelmap_qa/test-*.parquet
+|   |-- metromap_planning/test-*.parquet
+|   `-- travelmap_planning/test-*.parquet
+|-- assets/
+|   |-- metromap/{images,tabulars}/
+|   `-- travelmap/{images,tabulars}/
+`-- raw/
+    |-- metromap/{qa_data,data/test_set,prompts}/
+    `-- travelmap/{qa_data,data/test_set,prompts}/
 ```
 
-For exact inference, the CLI reads the original query records under `raw/` and resolves their referenced assets under `assets/`. It does not silently resample examples or rewrite answers.
+The normalized Parquet files work with `datasets.load_dataset`. Exact
+benchmark inference reads the lossless query records under `raw/` and
+resolves their repository-relative image and table paths under `assets/`.
+This is the layout generated in `Maptab_hug`; once that directory is
+uploaded, the GitHub code and Hugging Face dataset are directly aligned.
 
 ## Installation
 
 Python 3.10 or newer is required.
 
 ```bash
-git clone <repository-url>
-cd MapTab_git
-
+git clone https://github.com/Ziqiao-Shang/MapTab.git
+cd MapTab
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -e .
 ```
 
-For in-process local generation, install the optional vLLM dependency in an environment compatible with your CUDA stack:
+For local Qwen inference, install the vLLM extra in a CUDA-compatible
+environment:
 
 ```bash
 python -m pip install -e ".[local]"
 ```
 
-## Quick Start
+## Supported Models
 
-### 1. Download and validate the dataset
+Only these four model routes are accepted:
+
+| Backend | Supported model | Execution |
+| --- | --- | --- |
+| OpenLux | `gemini-3-flash` | Hosted multimodal API |
+| OpenLux | `gemini-3.5-flash` | Hosted multimodal API; default |
+| vLLM | `Qwen/Qwen3.5-9B` | Local multimodal inference; non-thinking |
+| vLLM | `Qwen/Qwen3-VL-8B-Instruct` | Local multimodal inference |
+
+The CLI rejects every other provider or model. A local directory is accepted
+only when its final directory name matches one of the two supported Qwen
+models. The vLLM adapter always passes
+`chat_template_kwargs={"enable_thinking": False}`, which forces Qwen3.5
+into non-thinking mode.
+
+## End-to-End Test Workflow
+
+### 1. Download the Hugging Face test package
+
+The default command downloads only test queries, normalized test Parquet
+shards, referenced assets, and package metadata:
 
 ```bash
 maptab-infer download \
   --repo-id szq-nju/MapTab \
+  --revision main \
+  --subset test \
   --data-root ./data
+```
 
+Equivalent direct Hugging Face code:
+
+```python
+from huggingface_hub import snapshot_download
+
+snapshot_download(
+    repo_id="szq-nju/MapTab",
+    repo_type="dataset",
+    revision="main",
+    local_dir="./data",
+    allow_patterns=[
+        "README.md",
+        "dataset_card.md",
+        "manifest.json",
+        "maptab_loader.py",
+        "requirements.txt",
+        "data/metromap_qa/test-*.parquet",
+        "data/travelmap_qa/test-*.parquet",
+        "data/metromap_planning/test-*.parquet",
+        "data/travelmap_planning/test-*.parquet",
+        "assets/metromap/**",
+        "assets/travelmap/**",
+        "raw/metromap/qa_data/**",
+        "raw/travelmap/qa_data/**",
+        "raw/metromap/data/test_set/**",
+        "raw/travelmap/data/test_set/**",
+        "raw/metromap/prompts/**",
+        "raw/travelmap/prompts/**",
+    ],
+)
+```
+
+Use `--subset full` only when training data is also required. The Bash
+wrapper is `bash scripts/download_data.sh ./data test`.
+
+### 2. Validate every test input
+
+```bash
 maptab-infer validate \
   --data-root ./data \
   --domain all \
@@ -187,9 +240,10 @@ maptab-infer validate \
   --split test
 ```
 
-Validation loads every selected source file, formats every required prompt, and resolves every referenced image/table before any paid or GPU inference begins.
+Validation loads every query source, formats every packaged prompt, and
+resolves every image and table before API or GPU inference begins.
 
-### 2. Inspect the exact model input
+### 3. Inspect one exact request
 
 ```bash
 maptab-infer inspect \
@@ -200,100 +254,126 @@ maptab-infer inspect \
   --index 0
 ```
 
-This prints the ordered text/table/image content without calling a model.
+### 4. Run a supported model
 
-## Inference Backends
-
-### OpenAI-compatible API
+OpenLux:
 
 ```bash
-export OPENAI_API_KEY=your_key_here
+export OPENLUX_API_KEY=your_key_here
 
 maptab-infer generate \
   --data-root ./data \
-  --domain metromap \
+  --domain all \
   --task all-qa \
-  --provider openai \
-  --model qwen3-vl-plus \
-  --base-url https://your-endpoint.example/v1 \
-  --temperature 0 \
-  --max-tokens 2048 \
-  --output-dir results/response_generate
+  --provider openlux \
+  --model gemini-3.5-flash
 ```
 
-Use `--api-key-env NAME` if credentials are stored in a different environment variable. Keys are never accepted through a committed config file.
-
-### In-process vLLM
+vLLM with Qwen3.5-9B in non-thinking mode:
 
 ```bash
 maptab-infer generate \
   --data-root ./data \
-  --domain travelmap \
+  --domain all \
   --task all-planning \
   --split test \
   --provider vllm \
-  --model /path/to/multimodal-model \
+  --model Qwen/Qwen3.5-9B \
   --tensor-parallel-size 4 \
-  --max-model-len 128000 \
-  --gpu-memory-utilization 0.9 \
-  --output-dir results/response_generate
+  --max-model-len 128000
 ```
+
+For Qwen3-VL-8B, change only
+`--model Qwen/Qwen3-VL-8B-Instruct`.
+
+### 5. Evaluate
+
+```bash
+maptab-infer evaluate-dir \
+  --input-dir results/response_generate \
+  --output-dir results_evaluate \
+  --family auto
+```
+
+This is the complete path from the Hugging Face release to validation,
+generation, and benchmark scoring.
+
+## Public Interfaces
+
+The supported public surface contains:
+
+1. `maptab-infer list|download|validate|inspect|generate|evaluate|evaluate-dir`.
+2. Bash entry points under `scripts/`.
+3. The Python task registry, input builder, `OpenLuxProvider`,
+   `VLLMProvider`, runner, and evaluators.
+
+See [the API reference](docs/api.md) for exact command and Python signatures.
+
+## Inference Backends
+
+### OpenLux
+
+OpenLux uses the fixed `https://api.openlux.ai/v1` endpoint, reads
+`OPENLUX_API_KEY`, and accepts only `gemini-3-flash` or
+`gemini-3.5-flash`. Keys are never accepted as command-line arguments or
+written to results.
+
+### In-process vLLM
+
+vLLM accepts only `Qwen/Qwen3.5-9B` and
+`Qwen/Qwen3-VL-8B-Instruct`, or matching local directory names.
+`TENSOR_PARALLEL_SIZE`, `MAX_MODEL_LEN`, and
+`GPU_MEMORY_UTILIZATION` control local execution.
 
 ### Bash entry points
 
-All Bash entry points reuse the same task registry and inference implementation. Configure the backend once:
+| Scope | Script |
+| --- | --- |
+| Download test/full package | `scripts/download_data.sh DATA_ROOT [test|full]` |
+| Generic QA | `scripts/generate_qa.sh` |
+| Generic planning | `scripts/generate_rp.sh` |
+| MetroMap/TravelMap QA | `scripts/run_metromap_qa.sh`, `scripts/run_travelmap_qa.sh` |
+| MetroMap/TravelMap planning | `scripts/run_metromap_planning.sh`, `scripts/run_travelmap_planning.sh` |
+| One task | `scripts/run_qa_task.sh`, `scripts/run_planning_task.sh` |
+| All QA | `scripts/run_all_qa.sh DATA_ROOT [MODEL]` |
+| All planning | `scripts/run_all_planning.sh DATA_ROOT [MODEL] [SPLIT]` |
+| Complete generation | `scripts/run_all.sh` |
+| Evaluation | `scripts/evaluate_qa.sh`, `scripts/evaluate_rp.sh`, `scripts/evaluate_all.sh` |
+
+OpenLux:
 
 ```bash
-export MAPTAB_DATA_ROOT=/path/to/MapTab
-export MODEL_PATH=qwen3-vl-plus
-export PROVIDER=openai
-export OPENAI_API_KEY=your_key_here
-export OPENAI_BASE_URL=https://your-endpoint.example/v1
-```
-
-The available scripts are:
-
-| Scope | Script | Behavior |
-| --- | --- | --- |
-| Generic QA | `scripts/generate_qa.sh` | Runs `DOMAIN` (default `all`) and `QA_TASKS` (default `all-qa`) |
-| Generic planning | `scripts/generate_rp.sh` | Runs `DOMAIN`, `RP_TASKS` (default `all-planning`), and `SPLIT` (default `test`) |
-| MetroMap QA | `scripts/run_metromap_qa.sh` | Runs all scored MetroMap QA tasks, or the selector in `QA_TASKS` |
-| TravelMap QA | `scripts/run_travelmap_qa.sh` | Runs all scored TravelMap QA tasks, or the selector in `QA_TASKS` |
-| MetroMap planning | `scripts/run_metromap_planning.sh` | Runs all MetroMap planning tasks, or the selector in `RP_TASKS` |
-| TravelMap planning | `scripts/run_travelmap_planning.sh` | Runs all TravelMap planning tasks, or the selector in `RP_TASKS` |
-| One QA task | `scripts/run_qa_task.sh DOMAIN QA_TASK` | Runs one named QA task for one domain |
-| One planning task | `scripts/run_planning_task.sh DOMAIN TASK [SPLIT]` | Runs one named planning task and split |
-| All QA, positional API form | `scripts/run_all_qa.sh DATA_ROOT MODEL BASE_URL` | Runs both domains with an OpenAI-compatible endpoint |
-| All planning, positional API form | `scripts/run_all_planning.sh DATA_ROOT MODEL BASE_URL [SPLIT]` | Runs both domains with an OpenAI-compatible endpoint |
-| Complete generation | `scripts/run_all.sh` | Runs all scored QA and planning tasks sequentially |
-| Evaluation | `scripts/evaluate_qa.sh`, `scripts/evaluate_rp.sh`, `scripts/evaluate_all.sh` | Evaluates QA, planning, or both result families |
-
-Typical invocations are:
-
-```bash
-bash scripts/run_metromap_qa.sh
-bash scripts/run_travelmap_planning.sh
-bash scripts/run_qa_task.sh metromap 10_qa_pic_and_tab_global
-bash scripts/run_planning_task.sh travelmap shortest_path_only_map test
+export MAPTAB_DATA_ROOT="$PWD/data"
+export OPENLUX_API_KEY=your_key_here
+export PROVIDER=openlux
+export MODEL_PATH=gemini-3-flash
 bash scripts/run_all.sh
-bash scripts/evaluate_all.sh
 ```
 
-The generic scripts also expose `OUTPUT_DIR`, `API_KEY_ENV`, `TEMPERATURE`, `MAX_TOKENS`, `MAX_PIXELS`, `MAX_RETRIES`, `RETRY_BACKOFF`, `TIMEOUT`, `SEED`, `OFFSET`, and `LIMIT`. Set `OVERWRITE=1`, `RETRY_ERRORS=1`, or `CONTINUE_ON_ERROR=1` to enable the corresponding switches. For vLLM, set `PROVIDER=vllm` and optionally configure `TENSOR_PARALLEL_SIZE`, `MAX_MODEL_LEN`, and `GPU_MEMORY_UTILIZATION`.
+vLLM:
 
-The Python compatibility wrapper also accepts the original `--task`, `--subtask`, and `--model_path` names:
+```bash
+export MAPTAB_DATA_ROOT="$PWD/data"
+export PROVIDER=vllm
+export MODEL_PATH=Qwen/Qwen3-VL-8B-Instruct
+export TENSOR_PARALLEL_SIZE=4
+bash scripts/run_all.sh
+```
+
+The compatibility wrapper retains the upstream argument names:
 
 ```bash
 PYTHONPATH=src python src/generate.py \
   --task metromap \
   --subtask shortest_path_only_map \
-  --model_path qwen3-vl-plus \
-  --provider openai \
-  --base_url https://your-endpoint.example/v1 \
+  --provider openlux \
+  --model_path gemini-3.5-flash \
   --data_root ./data
 ```
 
-Useful task selectors are `all`, `all-qa`, `all-planning`, `all-probes`, `canonical-qa`, and `canonical-planning`. Planning supports `--split train|test|all`; QA and probes always use their released QA records.
+Useful selectors are `all`, `all-qa`, `all-planning`, `all-probes`,
+`canonical-qa`, and `canonical-planning`. Planning supports
+`--split train|test|all`; a test-only download supports test inference.
 
 ## Evaluation
 
@@ -343,7 +423,7 @@ Each item preserves the complete source record and adds provenance and normalize
   "benchmark_variant": "canonical",
   "benchmark_split": "test",
   "source_file": "...",
-  "model": "qwen3-vl-plus",
+  "model": "gemini-3.5-flash",
   "raw_response": "<answer_begin>42<answer_end>",
   "response": "<answer_begin>42<answer_end>",
   "reasoning_content": null,
@@ -359,6 +439,8 @@ Writes are atomic. Existing successful IDs are skipped by default, `--retry-erro
 MapTab_git/
 ├── assets/
 │   └── fig_1.png
+├── docs/
+│   └── api.md
 ├── scripts/
 │   ├── download_data.sh
 │   ├── generate_qa.sh
@@ -391,7 +473,6 @@ MapTab_git/
 ├── tests/
 │   └── test_registry.py
 ├── README.md
-├── README_zh.md
 └── pyproject.toml
 ```
 

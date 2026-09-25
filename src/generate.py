@@ -21,18 +21,19 @@ def main() -> None:
         help="Map domain",
     )
     parser.add_argument("--subtask", required=True)
-    parser.add_argument("--model_path", required=True)
+    parser.add_argument(
+        "--model_path",
+        default=os.getenv("MODEL_PATH", "gemini-3.5-flash"),
+    )
     parser.add_argument(
         "--data_root",
         default=os.getenv("MAPTAB_DATA_ROOT", "data"),
     )
     parser.add_argument(
         "--provider",
-        choices=("openai", "vllm"),
-        default=os.getenv("MAPTAB_PROVIDER", "openai"),
+        choices=("openlux", "vllm"),
+        default=os.getenv("MAPTAB_PROVIDER", "openlux"),
     )
-    parser.add_argument("--base_url", default=os.getenv("OPENAI_BASE_URL"))
-    parser.add_argument("--api_key_env", default="OPENAI_API_KEY")
     parser.add_argument(
         "--split",
         choices=("train", "test", "all"),
@@ -66,11 +67,7 @@ def main() -> None:
         str(args.seed),
         "--output-dir",
         args.output_dir,
-        "--api-key-env",
-        args.api_key_env,
     ]
-    if args.base_url:
-        argv.extend(("--base-url", args.base_url))
     if args.limit is not None:
         argv.extend(("--limit", str(args.limit)))
     if args.overwrite:

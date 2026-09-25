@@ -9,6 +9,20 @@ from pathlib import Path
 from typing import Any, Protocol
 
 
+OPENLUX_BASE_URL = "https://api.openlux.ai/v1"
+OPENLUX_MODELS = ("gemini-3-flash", "gemini-3.5-flash")
+VLLM_MODELS = (
+    "Qwen/Qwen3.5-9B",
+    "Qwen/Qwen3-VL-8B-Instruct",
+)
+_VLLM_MODEL_LEAVES = {
+    "qwen3.5-9b",
+    "qwen-3.5-9b",
+    "qwen3-vl-8b",
+    "qwen3-vl-8b-instruct",
+}
+
+
 @dataclass(frozen=True)
 class GenerationResult:
     text: str
@@ -82,14 +96,35 @@ def _openai_content(
     return payload
 
 
-class OpenAICompatibleProvider:
-    """Hosted API or an OpenAI-compatible local serving endpoint."""
+def validate_model(provider: str, model: str) -> None:
+    if provider == "openlux":
+        if model not in OPENLUX_MODELS:
+            supported = ", ".join(OPENLUX_MODELS)
+            raise ValueError(
+                f"unsupported OpenLux model {model!r}; choose {supported}"
+            )
+        return
+    if provider == "vllm":
+        leaf = Path(model.rstrip("/")).name.lower()
+        if model not in VLLM_MODELS and leaf not in _VLLM_MODEL_LEAVES:
+            supported = ", ".join(VLLM_MODELS)
+            raise ValueError(
+                f"unsupported vLLM model {model!r}; choose {supported} "
+                "or a local directory with one of those model names"
+            )
+        return
+    raise ValueError(
+        f"unsupported provider {provider!r}; choose openlux or vllm"
+    )
+
+
+class OpenLuxProvider:
+    """OpenLux adapter restricted to the two supported Gemini routes."""
 
     def __init__(
         self,
         model: str,
         api_key: str,
-        base_url: str | None,
         *,
         temperature: float,
         max_tokens: int,
@@ -101,9 +136,11 @@ class OpenAICompatibleProvider:
     ) -> None:
         from openai import OpenAI
 
-        kwargs: dict[str, Any] = {"api_key": api_key}
-        if base_url:
-            kwargs["base_url"] = base_url
+        validate_model("openlux", model)
+        kwargs: dict[str, Any] = {
+            "api_key": api_key,
+            "base_url": OPENLUX_BASE_URL,
+        }
         if timeout is not None:
             kwargs["timeout"] = timeout
         self.client = OpenAI(**kwargs)
@@ -159,6 +196,7 @@ class VLLMProvider:
     ) -> None:
         from vllm import LLM, SamplingParams
 
+        validate_model("vllm", model)
         self.llm = LLM(
             model=model,
             tensor_parallel_size=tensor_parallel_size,
@@ -190,6 +228,7 @@ class VLLMProvider:
             messages,
             sampling_params=self.sampling,
             use_tqdm=False,
+            chat_template_kwargs={"enable_thinking": False},
         )
         text = output[0].outputs[0].text.strip()
         return GenerationResult(text)

@@ -3,10 +3,9 @@ set -euo pipefail
 
 REPO_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 : "${MAPTAB_DATA_ROOT:?Set MAPTAB_DATA_ROOT to a MapTab data snapshot}"
-: "${MODEL_PATH:?Set MODEL_PATH to a model ID or local model path}"
-
 PYTHON_BIN=${PYTHON_BIN:-python}
-PROVIDER=${PROVIDER:-openai}
+PROVIDER=${PROVIDER:-openlux}
+MODEL_PATH=${MODEL_PATH:-gemini-3.5-flash}
 OUTPUT_DIR=${OUTPUT_DIR:-"$REPO_ROOT/results/response_generate"}
 ARGS=(
   -m maptab_infer.cli generate
@@ -15,7 +14,6 @@ ARGS=(
   --task "${QA_TASKS:-all-qa}"
   --provider "$PROVIDER"
   --model "$MODEL_PATH"
-  --api-key-env "${API_KEY_ENV:-OPENAI_API_KEY}"
   --temperature "${TEMPERATURE:-0}"
   --max-tokens "${MAX_TOKENS:-2048}"
   --max-pixels "${MAX_PIXELS:-10000000}"
@@ -28,9 +26,6 @@ ARGS=(
   --output-dir "$OUTPUT_DIR"
   --seed "${SEED:-42}"
 )
-if [[ -n "${OPENAI_BASE_URL:-}" ]]; then
-  ARGS+=(--base-url "$OPENAI_BASE_URL")
-fi
 if [[ -n "${OFFSET:-}" ]]; then
   ARGS+=(--offset "$OFFSET")
 fi

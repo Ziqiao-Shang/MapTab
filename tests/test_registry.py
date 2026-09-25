@@ -1,14 +1,115 @@
 from __future__ import annotations
 
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import patch
 
+from maptab_infer.cli import parser as build_parser
 from maptab_infer.data import build_content, resolve_asset, source_filename
 from maptab_infer.evaluate import evaluate_planning, evaluate_qa
 from maptab_infer.parsing import normalize_generation
+from maptab_infer.providers import (
+    OPENLUX_MODELS,
+    VLLM_MODELS,
+    VLLMProvider,
+    validate_model,
+)
 from maptab_infer.tasks import get_task, list_tasks, task_counts
+
+
+class CliInterfaceTests(unittest.TestCase):
+    def test_openlux_is_the_zero_configuration_hosted_default(self) -> None:
+        with patch.dict(os.environ, {}, clear=True):
+            args = build_parser().parse_args(
+                [
+                    "generate",
+                    "--data-root",
+                    "data",
+                    "--task",
+                    "all-qa",
+                ]
+            )
+        self.assertEqual(args.provider, "openlux")
+        self.assertEqual(args.model, "gemini-3.5-flash")
+        self.assertFalse(hasattr(args, "base_url"))
+        self.assertFalse(hasattr(args, "api_key_env"))
+
+    def test_only_openlux_and_vllm_providers_are_exposed(self) -> None:
+        with self.assertRaises(SystemExit):
+            build_parser().parse_args(
+                [
+                    "generate",
+                    "--data-root",
+                    "data",
+                    "--task",
+                    "all-qa",
+                    "--provider",
+                    "openai",
+                ]
+            )
+
+    def test_download_defaults_to_aligned_test_package(self) -> None:
+        args = build_parser().parse_args(["download"])
+        self.assertEqual(args.repo_id, "szq-nju/MapTab")
+        self.assertEqual(args.subset, "test")
+
+    def test_supported_model_whitelist(self) -> None:
+        for model in OPENLUX_MODELS:
+            validate_model("openlux", model)
+        for model in VLLM_MODELS:
+            validate_model("vllm", model)
+        validate_model("vllm", "/models/Qwen3.5-9B")
+        with self.assertRaises(ValueError):
+            validate_model("openlux", "another-model")
+        with self.assertRaises(ValueError):
+            validate_model("vllm", "another-model")
+
+
+    def test_vllm_forces_nonthinking_chat_template(self) -> None:
+        seen: dict = {}
+
+        class FakeLLM:
+            def __init__(self, **kwargs) -> None:
+                seen["init"] = kwargs
+
+            def chat(self, messages, **kwargs):
+                seen["messages"] = messages
+                seen["chat"] = kwargs
+                return [
+                    SimpleNamespace(
+                        outputs=[SimpleNamespace(text="ok")]
+                    )
+                ]
+
+        fake_vllm = SimpleNamespace(
+            LLM=FakeLLM,
+            SamplingParams=lambda **kwargs: kwargs,
+        )
+        with patch.dict("sys.modules", {"vllm": fake_vllm}):
+            provider = VLLMProvider(
+                "Qwen/Qwen3.5-9B",
+                temperature=0.0,
+                max_tokens=16,
+                seed=42,
+                max_pixels=1_000_000,
+                tensor_parallel_size=1,
+                max_model_len=4096,
+                gpu_memory_utilization=0.9,
+                trust_remote_code=True,
+            )
+            result = provider.generate(
+                [{"type": "text", "text": "hello"}]
+            )
+
+        self.assertEqual(result.text, "ok")
+        self.assertEqual(
+            seen["chat"]["chat_template_kwargs"],
+            {"enable_thinking": False},
+        )
 
 
 class RegistryTests(unittest.TestCase):

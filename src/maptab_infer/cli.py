@@ -13,11 +13,34 @@ from .data import (
     referenced_assets,
 )
 from .evaluate import evaluate_file
-from .providers import OpenAICompatibleProvider, VLLMProvider
+from .providers import (
+    OpenLuxProvider,
+    VLLMProvider,
+    validate_model,
+)
 from .runner import run_generation
 from .tasks import TaskSpec, get_task, list_tasks, task_counts
 
 _DOMAINS = ("metromap", "travelmap")
+_TEST_ALLOW_PATTERNS = (
+    "README.md",
+    "dataset_card.md",
+    "manifest.json",
+    "maptab_loader.py",
+    "requirements.txt",
+    "data/metromap_qa/test-*.parquet",
+    "data/travelmap_qa/test-*.parquet",
+    "data/metromap_planning/test-*.parquet",
+    "data/travelmap_planning/test-*.parquet",
+    "assets/metromap/**",
+    "assets/travelmap/**",
+    "raw/metromap/qa_data/**",
+    "raw/travelmap/qa_data/**",
+    "raw/metromap/data/test_set/**",
+    "raw/travelmap/data/test_set/**",
+    "raw/metromap/prompts/**",
+    "raw/travelmap/prompts/**",
+)
 
 
 def _selection(name: str) -> list[TaskSpec]:
@@ -74,12 +97,15 @@ def cmd_list(args: argparse.Namespace) -> None:
 def cmd_download(args: argparse.Namespace) -> None:
     from huggingface_hub import snapshot_download
 
-    path = snapshot_download(
-        repo_id=args.repo_id,
-        repo_type="dataset",
-        revision=args.revision,
-        local_dir=args.data_root,
-    )
+    kwargs = {
+        "repo_id": args.repo_id,
+        "repo_type": "dataset",
+        "revision": args.revision,
+        "local_dir": args.data_root,
+    }
+    if args.subset == "test":
+        kwargs["allow_patterns"] = list(_TEST_ALLOW_PATTERNS)
+    path = snapshot_download(**kwargs)
     print(path)
 
 
@@ -169,6 +195,10 @@ def cmd_inspect(args: argparse.Namespace) -> None:
 
 
 def _provider(args: argparse.Namespace):
+    try:
+        validate_model(args.provider, args.model)
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from exc
     if args.provider == "vllm":
         return VLLMProvider(
             args.model,
@@ -182,15 +212,12 @@ def _provider(args: argparse.Namespace):
             trust_remote_code=args.trust_remote_code,
         )
 
-    key = os.getenv(args.api_key_env)
+    key = os.getenv("OPENLUX_API_KEY")
     if not key:
-        raise SystemExit(
-            f"environment variable {args.api_key_env} is required"
-        )
-    return OpenAICompatibleProvider(
+        raise SystemExit("environment variable OPENLUX_API_KEY is required")
+    return OpenLuxProvider(
         args.model,
         key,
-        args.base_url,
         temperature=args.temperature,
         max_tokens=args.max_tokens,
         seed=args.seed,
@@ -302,6 +329,12 @@ def parser() -> argparse.ArgumentParser:
     )
     command.add_argument("--revision", default="main")
     command.add_argument("--data-root", default="data")
+    command.add_argument(
+        "--subset",
+        choices=("test", "full"),
+        default="test",
+        help="download the inference test package or the full dataset",
+    )
     command.set_defaults(func=cmd_download)
 
     command = commands.add_parser(
@@ -371,14 +404,12 @@ def parser() -> argparse.ArgumentParser:
     )
     command.add_argument(
         "--provider",
-        choices=("openai", "vllm"),
-        default="openai",
+        choices=("openlux", "vllm"),
+        default="openlux",
     )
-    command.add_argument("--model", required=True)
-    command.add_argument("--base-url")
     command.add_argument(
-        "--api-key-env",
-        default="OPENAI_API_KEY",
+        "--model",
+        default=os.getenv("MODEL_PATH", "gemini-3.5-flash"),
     )
     command.add_argument("--temperature", type=float, default=0.0)
     command.add_argument("--max-tokens", type=int, default=2048)
